@@ -61,17 +61,18 @@ public class UserInterface
             addButton(buttonPanel, "7");
             addButton(buttonPanel, "8");
             addButton(buttonPanel, "9");
-            addButton(buttonPanel, "C");
+            buttonPanel.add(new JLabel(" "));          
             
             addButton(buttonPanel, "4");
             addButton(buttonPanel, "5");
             addButton(buttonPanel, "6");
-            addButton(buttonPanel, "?");
+            addButton(buttonPanel, "C");
             
             addButton(buttonPanel, "1");
             addButton(buttonPanel, "2");
             addButton(buttonPanel, "3");
-            buttonPanel.add(new JLabel(" "));
+            addButton(buttonPanel, "?");
+            
             
             addButton(buttonPanel, "0");
             addButton(buttonPanel, "+");
@@ -80,7 +81,7 @@ public class UserInterface
             
             buttonPanel.add(new JLabel(" "));
             addButton(buttonPanel, "*");
-            addButton(buttonPanel, "÷");
+            addButton(buttonPanel, "/");
             buttonPanel.add(new JLabel(" "));
             
         contentPane.add(buttonPanel, BorderLayout.CENTER);
@@ -143,7 +144,7 @@ public class UserInterface
         else if(command.equals("*")) {
         	calc.multiply();
         }
-        else if(command.equals("÷")) {
+        else if(command.equals("/")) {
         	calc.division();
         }
         // else unknown command.
