@@ -42,7 +42,7 @@ public class UserInterfaceHex extends UserInterface{
             addButton(buttonPanel, "7");
             addButton(buttonPanel, "8");
             addButton(buttonPanel, "9");
-            addButton(buttonPanel, "C");
+            addButton(buttonPanel, "X");
             
             addButton(buttonPanel, "4");
             addButton(buttonPanel, "5");
@@ -61,7 +61,7 @@ public class UserInterfaceHex extends UserInterface{
             
             buttonPanel.add(new JLabel(" "));
             addButton(buttonPanel, "*");
-            addButton(buttonPanel, "÷");
+            addButton(buttonPanel, "/");
             buttonPanel.add(new JLabel(" "));
             
         contentPane.add(buttonPanel, BorderLayout.CENTER);
@@ -90,10 +90,14 @@ public class UserInterfaceHex extends UserInterface{
             int number = Integer.parseInt(command);
             calc.numberPressed(number);
         }
-        else if(command.equals("A")) {
-        	String letter = Integer.toHexString(command.charAt(0));
-        	int number = Integer.parseInt(letter, 16);
-        	System.out.println(number);
+        else if(command.equals("A") ||
+        		command.equals("B") ||
+                command.equals("C") ||
+                command.equals("D") ||
+                command.equals("E") ||
+                command.equals("F") ) {
+        	int number = Integer.parseInt(command, 16);
+        	calc.numberPressed(number);      	
         }
         else if(command.equals("+")) {
             calc.plus();
@@ -104,7 +108,7 @@ public class UserInterfaceHex extends UserInterface{
         else if(command.equals("=")) {
             calc.equals();
         }
-        else if(command.equals("C")) {
+        else if(command.equals("X")) {
             calc.clear();
         }
         else if(command.equals("?")) {
@@ -113,7 +117,7 @@ public class UserInterfaceHex extends UserInterface{
         else if(command.equals("*")) {
         	calc.multiply();
         }
-        else if(command.equals("÷")) {
+        else if(command.equals("/")) {
         	calc.division();
         }
         // else unknown command.
@@ -121,9 +125,9 @@ public class UserInterfaceHex extends UserInterface{
         redisplay();
     }
     
-    private void redisplay()
+    protected void redisplay()
     {
-        display.setText("" + calc.getDisplayValue());
+        display.setText("0x" + Integer.toHexString(calc.getDisplayValue()).toUpperCase());
     }
 
 }
