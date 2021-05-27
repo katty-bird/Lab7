@@ -1,5 +1,6 @@
 package Calc;
 
+import java.util.concurrent.TimeUnit;
 
 /**
  * The main class of a simple calculator. Create one of these and you'll
@@ -18,8 +19,8 @@ public class Calculator
      */
     public Calculator()
     {
-        engine = new CalcEngine();
-        gui = new UserInterface(engine);
+        engine = new CalcEngineHex();
+        gui = new UserInterfaceHex(engine);
     }
 
     /**
@@ -29,4 +30,8 @@ public class Calculator
     {
         gui.setVisible(true);
     }
+    
+	public static void main(String[] args) {
+		Calculator calc = new Calculator();
+	}
 }
