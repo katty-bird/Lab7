@@ -88,7 +88,7 @@ public class CalcEngine
      */
     public void division()
     {
-        applyOperator('÷');
+        applyOperator('/');
     }
 
     /**
@@ -171,7 +171,7 @@ public class CalcEngine
             	haveLeftOperand = true;
             	leftOperand = displayValue;
             	break;
-            case '÷':
+            case '/':
             	displayValue = leftOperand / displayValue;
             	haveLeftOperand = true;
             	leftOperand = displayValue;
