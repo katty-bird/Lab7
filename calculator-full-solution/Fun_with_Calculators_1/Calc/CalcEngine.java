@@ -30,6 +30,7 @@ public class CalcEngine
     {
         clear();
     }
+    
 
     /**
      * @return The value that should currently be displayed
@@ -58,7 +59,8 @@ public class CalcEngine
             buildingDisplayValue = true;
         }
     }
-
+   
+    
     /**
      * The 'plus' button was pressed. 
      */
@@ -110,7 +112,7 @@ public class CalcEngine
             keySequenceError();
         }
     }
-
+    
     /**
      * The 'C' (clear) button was pressed.
      * Reset everything to a starting state.

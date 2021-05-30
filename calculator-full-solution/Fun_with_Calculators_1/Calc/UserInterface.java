@@ -16,6 +16,7 @@ public class UserInterface
     implements ActionListener
 {
     protected CalcEngine calc;
+    protected Calculator calculator; 
     private boolean showingAuthor;
 
     protected JFrame frame;
@@ -26,9 +27,10 @@ public class UserInterface
      * Create a user interface.
      * @param engine The calculator engine.
      */
-    public UserInterface(CalcEngine engine)
+    public UserInterface(CalcEngine engine, Calculator currentCalc)
     {
         calc = engine;
+        calculator = currentCalc;
         showingAuthor = true;
         makeFrame();
         frame.setVisible(true);
@@ -61,28 +63,29 @@ public class UserInterface
             addButton(buttonPanel, "7");
             addButton(buttonPanel, "8");
             addButton(buttonPanel, "9");
-            buttonPanel.add(new JLabel(" "));          
+//          buttonPanel.add(new JLabel(" "));   
+            addDecCheckBox(buttonPanel, "DEC");
             
             addButton(buttonPanel, "4");
             addButton(buttonPanel, "5");
             addButton(buttonPanel, "6");
-            addButton(buttonPanel, "C");
+            addHexCheckBox(buttonPanel, "HEX");
             
             addButton(buttonPanel, "1");
             addButton(buttonPanel, "2");
             addButton(buttonPanel, "3");
-            addButton(buttonPanel, "?");
+            addButton(buttonPanel, "C");
             
             
             addButton(buttonPanel, "0");
             addButton(buttonPanel, "+");
             addButton(buttonPanel, "-");
-            addButton(buttonPanel, "=");
+            addButton(buttonPanel, "?");
             
             buttonPanel.add(new JLabel(" "));
             addButton(buttonPanel, "*");
             addButton(buttonPanel, "/");
-            buttonPanel.add(new JLabel(" "));
+            addButton(buttonPanel, "=");
             
         contentPane.add(buttonPanel, BorderLayout.CENTER);
 
@@ -103,7 +106,31 @@ public class UserInterface
         button.addActionListener(this);
         panel.add(button);
     }
+    
+    /** 
+     * The two methods below add checkBoxex to the button panel.
+     * Initial setSelected values for boxes before switching: 
+     * dec - true; hex - false;
+     * @param panel The panel to receive the button.
+     * @param buttonText The text for the button.
+     */
+    protected void addDecCheckBox(Container panel, String buttonText)
+    {
+    	JCheckBox decButton = new JCheckBox(buttonText);
+    	decButton.setSelected(true);
+    	decButton.addActionListener(this);
+    	panel.add(decButton);
+    }
+    
+    protected void addHexCheckBox(Container panel, String buttonText)
+    {
+    	JCheckBox hexButton = new JCheckBox(buttonText);
+        hexButton.setSelected(false);
+        hexButton.addActionListener(this);
+    	panel.add(hexButton);
+    }
 
+    
     /**
      * An interface action has been performed.
      * Find out what it was and handle it.
@@ -146,6 +173,10 @@ public class UserInterface
         }
         else if(command.equals("/")) {
         	calc.division();
+        }
+        else if(command.equals("HEX")) {
+        	calculator.hide();
+        	calculator.createHexCalc();
         }
         // else unknown command.
 

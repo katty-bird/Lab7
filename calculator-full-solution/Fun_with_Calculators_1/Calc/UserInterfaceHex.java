@@ -1,9 +1,11 @@
 package Calc;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,10 +14,13 @@ import javax.swing.border.EmptyBorder;
 
 public class UserInterfaceHex extends UserInterface{
 	
-	public UserInterfaceHex(CalcEngine engine) {
-		super(engine);
+	public UserInterfaceHex(CalcEngine engine, Calculator currentCalc) {
+		super(engine, currentCalc);
 	}
 	
+    /**
+     * Make the frame for the user interface in Hexadecimal system.
+     */
 	@Override
 	 protected void makeFrame()
     {
@@ -32,27 +37,27 @@ public class UserInterfaceHex extends UserInterface{
         	addButton(buttonPanel, "A");
         	addButton(buttonPanel, "B");
         	addButton(buttonPanel, "C");
-        	buttonPanel.add(new JLabel(" "));
+        	addDecCheckBox(buttonPanel, "DEC");
         	
         	addButton(buttonPanel, "D");
             addButton(buttonPanel, "E");
             addButton(buttonPanel, "F");
-            buttonPanel.add(new JLabel(" "));
+            addHexCheckBox(buttonPanel, "HEX");
         	
             addButton(buttonPanel, "7");
             addButton(buttonPanel, "8");
             addButton(buttonPanel, "9");
-            addButton(buttonPanel, "X");
+            buttonPanel.add(new JLabel(" "));
             
             addButton(buttonPanel, "4");
             addButton(buttonPanel, "5");
             addButton(buttonPanel, "6");
-            addButton(buttonPanel, "?");
+            addButton(buttonPanel, "X");
             
             addButton(buttonPanel, "1");
             addButton(buttonPanel, "2");
             addButton(buttonPanel, "3");
-            buttonPanel.add(new JLabel(" "));
+            addButton(buttonPanel, "?");
             
             addButton(buttonPanel, "0");
             addButton(buttonPanel, "+");
@@ -71,7 +76,37 @@ public class UserInterfaceHex extends UserInterface{
 
         frame.pack();
     }
-    
+	
+    /** 
+     * The two methods below add checkBoxex to the button panel.
+     * Initial setSelected values for boxes before switching: 
+     * dec-false; hex-true;
+     * @param panel The panel to receive the button.
+     * @param buttonText The text for the button.
+     */
+	@Override
+	protected void addDecCheckBox(Container panel, String buttonText)
+    {
+    	JCheckBox decButton = new JCheckBox(buttonText);
+    	decButton.setSelected(false);
+    	decButton.addActionListener(this);
+    	panel.add(decButton);
+    }
+	
+	@Override
+    protected void addHexCheckBox(Container panel, String buttonText)
+    {
+    	JCheckBox hexButton = new JCheckBox(buttonText);
+        hexButton.setSelected(true);
+        hexButton.addActionListener(this);
+    	panel.add(hexButton);
+    }
+	
+    /**
+     * An interface action has been performed.
+     * Find out what it was and handle it.
+     * @param event The event that has occured.
+     */
     @Override
     public void actionPerformed(ActionEvent event)
     {
@@ -120,14 +155,21 @@ public class UserInterfaceHex extends UserInterface{
         else if(command.equals("/")) {
         	calc.division();
         }
+        else if(command.equals("DEC")) {
+        	calculator.hide();
+        	calculator.createCalc();
+        }
         // else unknown command.
 
         redisplay();
     }
     
+    /**
+     * Update the interface display to show the current value of the 
+     * calculator in Hexadecimal system.
+     */
     protected void redisplay()
     {
         display.setText("0x" + Integer.toHexString(calc.getDisplayValue()).toUpperCase());
     }
-
 }
